@@ -13,18 +13,21 @@ class BookController extends Controller
      */
     public function index(Book $book , Request $request)
     {
+
+        $order = request()->has('order') ? request('order') : 'desc';
         $search = $request->input('search');
 
         if ($request->has('search')){
-            $book = Book::where('title', 'like', "%$search%")->paginate();
+            $book = Book::where('title', 'like', "%$search%")->orderBy('created_at',$order)->paginate();
 
             return view('admin',[
                 'books' => $book,
             ]);
         }
 
+
         return view('admin',[
-            'books' => $book->paginate(15),
+            'books' => $book->orderBy('created_at',$order)->paginate(15),
             'authors' => $book->authors()
         ]);
 

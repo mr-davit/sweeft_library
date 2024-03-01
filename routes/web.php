@@ -29,10 +29,9 @@ Route::middleware(['guest'])->group(function () {
 
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/', [HomeController::class, 'author'])->name('author');
-
 //auth
 Route::middleware(['auth'])->group(function () {
+Route::get('/author', [HomeController::class, 'author'])->name('author');
     Route::get('/logout', function () { auth()->logout();
         return redirect(route('login'));})->name('logout');
 
@@ -50,4 +49,3 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-//value="{{old('title_en',$movie->getTranslation('title','en'))}}
