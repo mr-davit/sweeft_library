@@ -29,6 +29,7 @@ Route::middleware(['guest'])->group(function () {
 
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'author'])->name('author');
 
 //auth
 Route::middleware(['auth'])->group(function () {
@@ -38,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     //Book controller
     Route::controller(BookController::class)->group(function (){
     Route::get('/admin', 'index')->name('admin');
+    Route::get('/search', 'index')->name('book.search');
+    Route::get('/show{book:id}', 'show')->name('book.show');
     Route::get('/add', 'create')->name('book.create');
     Route::post('/store',  'store')->name('book.store');
     Route::get('/edit{book:id}', 'edit')->name('book.edit');

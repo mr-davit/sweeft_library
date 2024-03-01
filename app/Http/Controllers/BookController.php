@@ -11,12 +11,23 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Book $book)
+    public function index(Book $book , Request $request)
     {
+        $search = $request->input('search');
+
+        if ($request->has('search')){
+            $book = Book::where('title', 'like', "%$search%")->paginate();
+
+            return view('admin',[
+                'books' => $book,
+            ]);
+        }
+
         return view('admin',[
-            'books' => $book->get()->all(),
+            'books' => $book->paginate(15),
             'authors' => $book->authors()
         ]);
+
     }
 
     /**
@@ -59,9 +70,12 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Book $book)
     {
 
+        return view('book.show',[
+            'book' => $book,
+        ]);
 
     }
 
@@ -105,6 +119,7 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return back();
+        return redirect()->route('admin');
     }
+
 }
