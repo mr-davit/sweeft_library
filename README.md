@@ -15,10 +15,13 @@
 
 
 ### Default Username and Password for admin account are
-
+Username
 ```sh
-Username - test@sweeft.ge
-Password - password
+test@sweeft.ge
+```
+Password
+```sh
+password
 ```
 
 
