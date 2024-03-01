@@ -40,7 +40,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', 'index')->name('admin');
     Route::get('/add', 'create')->name('book.create');
     Route::post('/store',  'store')->name('book.store');
-    });
+    Route::get('/edit{book:id}', 'edit')->name('book.edit');
+    Route::patch('/update{book:id}', 'update')->name('book.update');
 
+    });
 });
 
+//value="{{old('title_en',$movie->getTranslation('title','en'))}}
