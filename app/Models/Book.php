@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+    Protected $guarded = ['id'];
 
     public function authors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

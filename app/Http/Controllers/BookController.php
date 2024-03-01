@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -9,17 +11,22 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Book $book)
     {
-        //
+        return view('admin',[
+            'books' => $book->get()->all(),
+            'authors' => $book->authors()
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Author $author)
     {
-        //
+        return view('book.add' ,[
+            'authors' => $author->get()->all()
+        ]);
     }
 
     /**
@@ -27,7 +34,22 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'year' => 'required|numeric',
+        ]);
+
+       $book = Book::create([
+            'title' => $validated['title'],
+            'year' => $validated['year'],
+        ]);
+
+        $book->authors()->sync($request->authors);
+
+        return redirect(route('admin'));
+
     }
 
     /**
@@ -35,7 +57,8 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+
     }
 
     /**
