@@ -18,6 +18,8 @@ class BookFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'year' => $this->faker->year(),        ];
+            'year' => $this->faker->year(),
+            'status' => 'free'
+            ];
     }
 }

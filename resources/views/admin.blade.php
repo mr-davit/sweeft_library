@@ -70,13 +70,19 @@
                                         {{ $author->name }},
                                     @endforeach</td>
                                 <td class="px-4 py-3">{{$book->year}}</td>
-                                <td class="px-4 py-3 max-w-[12rem]">Free</td>
+                                <td class="px-4 py-3 max-w-[12rem]">{{$book->status}}</td>
 
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <a href="{{route('book.edit',['book'=>$book->id])}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
                                 </td>
                                 <td class="px-2 py-3 flex items-center justify-end">
-                                    <a href="{{}}" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">Delete</a>
+
+                                    <form method="post" action="{{route('book.delete',['book' => $book->id])}}">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">delete</button>
+                                    </form>
                                 </td>
                             </tr>
 

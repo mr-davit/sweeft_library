@@ -39,12 +39,16 @@ class BookController extends Controller
         $validated = $request->validate([
             'title' => 'required|string',
             'year' => 'required|numeric',
+            'status' => ['required', 'in:free,reserved']
         ]);
 
+//        dd($validated['status']);
        $book = Book::create([
             'title' => $validated['title'],
             'year' => $validated['year'],
-        ]);
+           'status' => $validated['status']
+
+       ]);
 
         $book->authors()->sync($request->authors);
 
@@ -82,6 +86,7 @@ class BookController extends Controller
         $validated = $request->validate([
             'title' => 'required|string',
             'year' => 'required|numeric',
+            'status' => ['required', 'in:free,reserved']
         ]);
 
         $book->update([
@@ -97,8 +102,9 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return back();
     }
 }

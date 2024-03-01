@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/store',  'store')->name('book.store');
     Route::get('/edit{book:id}', 'edit')->name('book.edit');
     Route::patch('/update{book:id}', 'update')->name('book.update');
+    Route::delete('/delete{book:id}', 'destroy')->name('book.delete');
 
     });
 });
